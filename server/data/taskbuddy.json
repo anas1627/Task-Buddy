@@ -1,0 +1,195 @@
+{
+  "users": [
+    {
+      "id": "demo-user-1",
+      "name": "Alex Johnson",
+      "email": "demo@taskbuddy.app",
+      "password": "$2a$10$ZJaxZNhpbXRmNvYoByaTHuBNUCXQirVrAUngTjUymbThZ5.LEh.qu",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-11-17T17:30:08.801Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-1",
+      "name": "General",
+      "color": "#6366f1",
+      "icon": "Folder",
+      "userId": "demo-user-1"
+    },
+    {
+      "id": "cat-2",
+      "name": "Work",
+      "color": "#3b82f6",
+      "icon": "Briefcase",
+      "userId": "demo-user-1"
+    },
+    {
+      "id": "cat-3",
+      "name": "Coding",
+      "color": "#10b981",
+      "icon": "Code",
+      "userId": "demo-user-1"
+    },
+    {
+      "id": "cat-4",
+      "name": "Study",
+      "color": "#8b5cf6",
+      "icon": "BookOpen",
+      "userId": "demo-user-1"
+    },
+    {
+      "id": "cat-5",
+      "name": "Personal",
+      "color": "#ec4899",
+      "icon": "User",
+      "userId": "demo-user-1"
+    },
+    {
+      "id": "cat-6",
+      "name": "Health",
+      "color": "#14b8a6",
+      "icon": "Heart",
+      "userId": "demo-user-1"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "userId": "demo-user-1",
+      "title": "Task 2",
+      "description": "Complete initial setup and verify modules",
+      "priority": "medium",
+      "category": "General",
+      "completed": false,
+      "dueDate": "2026-11-18",
+      "order": 1,
+      "subtasks": [
+        {
+          "id": "sub-1",
+          "title": "Check project dependencies",
+          "completed": true
+        },
+        {
+          "id": "sub-2",
+          "title": "Verify environment variables",
+          "completed": false
+        }
+      ],
+      "createdAt": "2026-11-17T15:30:08.803Z",
+      "updatedAt": "2026-11-17T15:30:08.803Z"
+    },
+    {
+      "id": "task-2",
+      "userId": "demo-user-1",
+      "title": "Task 3",
+      "description": "Refactor components and optimize styling",
+      "priority": "medium",
+      "category": "General",
+      "completed": false,
+      "dueDate": "2026-11-18",
+      "order": 2,
+      "subtasks": [
+        {
+          "id": "sub-3",
+          "title": "Review Tailwind tokens",
+          "completed": false
+        }
+      ],
+      "createdAt": "2026-11-17T16:30:08.803Z",
+      "updatedAt": "2026-11-17T16:30:08.803Z"
+    },
+    {
+      "id": "task-3",
+      "userId": "demo-user-1",
+      "title": "Java DSA",
+      "description": "Solve binary trees and graph traversal problems on LeetCode",
+      "priority": "medium",
+      "category": "General",
+      "completed": false,
+      "dueDate": "2026-11-24",
+      "order": 3,
+      "subtasks": [
+        {
+          "id": "sub-4",
+          "title": "Binary Tree Invert",
+          "completed": true
+        },
+        {
+          "id": "sub-5",
+          "title": "Lowest Common Ancestor",
+          "completed": true
+        },
+        {
+          "id": "sub-6",
+          "title": "Dijkstra shortest path algorithm",
+          "completed": false
+        }
+      ],
+      "createdAt": "2026-11-17T17:30:08.801Z",
+      "updatedAt": "2026-11-17T17:30:08.801Z"
+    },
+    {
+      "id": "task-4",
+      "userId": "demo-user-1",
+      "title": "Design real-time synchronization engine",
+      "description": "Configure Socket.io rooms and dispatch events for multi-client collaboration",
+      "priority": "high",
+      "category": "Coding",
+      "completed": true,
+      "dueDate": "2026-11-17",
+      "order": 4,
+      "subtasks": [
+        {
+          "id": "sub-7",
+          "title": "Setup WebSocket handshake",
+          "completed": true
+        },
+        {
+          "id": "sub-8",
+          "title": "Add room broadcasting",
+          "completed": true
+        }
+      ],
+      "createdAt": "2026-11-17T12:30:08.803Z",
+      "updatedAt": "2026-11-17T17:30:08.801Z"
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "act-1794937221895-chamm",
+      "userId": "demo-user-1",
+      "action": "DELETED",
+      "taskTitle": "Verify WebSocket live dispatch",
+      "timestamp": "2026-11-17T17:40:21.895Z"
+    },
+    {
+      "id": "act-1794937221890-nhfbr",
+      "userId": "demo-user-1",
+      "action": "COMPLETED",
+      "taskTitle": "Verify WebSocket live dispatch",
+      "timestamp": "2026-11-17T17:40:21.890Z"
+    },
+    {
+      "id": "act-1794937221887-lr7gu",
+      "userId": "demo-user-1",
+      "action": "CREATED",
+      "taskTitle": "Verify WebSocket live dispatch",
+      "timestamp": "2026-11-17T17:40:21.887Z"
+    },
+    {
+      "id": "act-1",
+      "userId": "demo-user-1",
+      "action": "CREATED",
+      "taskTitle": "Java DSA",
+      "timestamp": "2026-11-17T17:30:08.801Z"
+    },
+    {
+      "id": "act-2",
+      "userId": "demo-user-1",
+      "action": "COMPLETED",
+      "taskTitle": "Design real-time synchronization engine",
+      "timestamp": "2026-11-17T17:30:08.801Z"
+    }
+  ]
+}
