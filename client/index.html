@@ -1,22 +1,218 @@
-<!doctype html>
-<html lang="en" class="dark">
-
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/></svg>" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TaskBuddy — Your Friendly Task Manager</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskBuddy — Your friendly task manager</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/></svg>">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Confetti script for celebration on completion -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
 </head>
+<body>
 
-<body class="bg-[#0b0f17] text-slate-100 antialiased selection:bg-amber-500 selection:text-black min-h-screen">
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+  <!-- Header matching TaskBuddy Reference -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-top">
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle theme">☀️</button>
+      </div>
+      <div class="brand-wrapper">
+        <h1 class="brand-title">Task<span class="highlight">Buddy</span></h1>
+        <p class="brand-tagline">Your friendly task manager</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Task Input Bar (Matching Reference Screenshot) -->
+      <section class="task-form-card">
+        <form id="taskForm" autocomplete="off">
+          <div class="task-form-row">
+            <!-- Text input and attached Add Task button -->
+            <div class="input-group-main">
+              <input 
+                type="text" 
+                id="taskInput" 
+                class="task-input" 
+                placeholder="Enter your task" 
+                required 
+                autofocus
+              >
+              <button type="submit" class="btn-add-task">
+                Add Task
+              </button>
+            </div>
+
+            <!-- Priority Dropdown -->
+            <div class="select-wrapper">
+              <select id="prioritySelect" class="custom-select" aria-label="Task Priority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+              <svg class="select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+
+            <!-- Category Dropdown -->
+            <div class="select-wrapper">
+              <select id="categorySelect" class="custom-select" aria-label="Task Category">
+                <option value="General" selected>General</option>
+                <option value="Work">Work</option>
+                <option value="Coding">Coding</option>
+                <option value="Study">Study</option>
+                <option value="Personal">Personal</option>
+                <option value="Health">Health</option>
+              </select>
+              <svg class="select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Filter & Search Toolbar -->
+      <section class="filter-toolbar">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search tasks...">
+        </div>
+
+        <div class="filter-pills">
+          <button class="pill-btn active" data-filter="all">All</button>
+          <button class="pill-btn" data-filter="active">Active</button>
+          <button class="pill-btn" data-filter="completed">Completed</button>
+        </div>
+      </section>
+
+      <!-- Task Items List (Format: Task 2(Medium, General)) -->
+      <section id="tasksList" class="tasks-list" aria-label="Task list">
+        <!-- Dynamic task cards will be rendered here -->
+      </section>
+
+      <!-- Empty State (Shown when no tasks match) -->
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 11l3 3L22 4"></path>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+        </svg>
+        <h3>No tasks found</h3>
+        <p>Type a task in the box above and click "Add Task" to get organized!</p>
+      </div>
+
+      <!-- Progress Section & Clear All Tasks (Matching Reference Screenshot) -->
+      <section class="progress-section">
+        <div id="progressCounter" class="progress-counter">0 of 3 tasks completed</div>
+        <div class="progress-track">
+          <div id="progressBarFill" class="progress-bar-fill"></div>
+        </div>
+
+        <div class="clear-tasks-container">
+          <button id="clearAllBtn" class="btn-clear-all">
+            Clear All Tasks
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Edit Task Modal -->
+  <div id="editModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Task</h3>
+        <button id="closeEditModalBtn" class="btn-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="editTaskForm">
+        <div class="modal-body">
+          <label style="display:block; font-size:0.8rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Task Title</label>
+          <input 
+            type="text" 
+            id="editTaskInput" 
+            class="task-input" 
+            style="width:100%; border:1px solid var(--border-color); border-radius:var(--radius-sm); margin-bottom:14px; background:var(--bg-input);" 
+            required
+          >
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div>
+              <label style="display:block; font-size:0.8rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Priority</label>
+              <select id="editPrioritySelect" class="custom-select" style="height:42px; border-radius:var(--radius-sm);">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block; font-size:0.8rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Category</label>
+              <select id="editCategorySelect" class="custom-select" style="height:42px; border-radius:var(--radius-sm);">
+                <option value="General">General</option>
+                <option value="Work">Work</option>
+                <option value="Coding">Coding</option>
+                <option value="Study">Study</option>
+                <option value="Personal">Personal</option>
+                <option value="Health">Health</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancelEditBtn" class="btn-modal-cancel">Cancel</button>
+          <button type="submit" class="btn-modal-confirm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Clear All Confirmation Modal -->
+  <div id="confirmModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Clear All Tasks?</h3>
+        <button id="closeConfirmModalBtn" class="btn-close-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          Are you sure you want to delete all tasks? This action cannot be undone.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelClearBtn" class="btn-modal-cancel">Cancel</button>
+        <button type="button" id="confirmClearBtn" class="btn-modal-danger">Yes, Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>TaskBuddy &bull; Your Friendly Task Manager &bull; Built with HTML &amp; CSS</p>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
 </body>
-
 </html>
